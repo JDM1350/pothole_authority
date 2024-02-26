@@ -1,0 +1,80 @@
+{
+    "detect":[
+     {
+      "city": "Pune",
+      "country": "India",
+      "latitude": 19.0748,
+      "longitude": 72.8856,
+      "servirity": 0.43
+    },
+    {
+      "city": "Pune",
+      "country": "India",
+      "latitude": 19.0748,
+      "longitude": 72.8856,
+      "servirity": 0.39
+    },
+     {
+      "city": "Pune",
+      "country": "India",
+      "latitude": 19.0748,
+      "longitude": 72.8856,
+      "servirity": 0.58
+    },
+     {
+      "city": "Pune",
+      "country": "India",
+      "latitude": 19.0748,
+      "longitude": 72.8856,
+      "servirity": 0.52
+    },
+   {
+      "city": "Pune",
+      "country": "India",
+      "latitude": 19.0748,
+      "longitude": 72.8856,
+      "servirity": 0.43
+    },
+    {
+      "city": "Pune",
+      "country": "India",
+      "latitude": 19.0748,
+      "longitude": 72.8856,
+      "servirity": 0.32
+    },
+    {
+      "city": "Pune",
+      "country": "India",
+      "latitude": 19.0748,
+      "longitude": 72.8856,
+      "servirity": 0.27
+    },
+    {
+      "city": "Pune",
+      "country": "India",
+      "latitude": 19.0748,
+      "longitude": 72.8856,
+      "servirity": 0.59
+    },
+     {
+      "city": "Pune",
+      "country": "India",
+      "latitude": 19.0748,
+      "longitude": 72.8856,
+      "servirity": 0.59
+    },
+     {
+      "city": "Pune",
+      "country": "India",
+      "latitude": 19.0748,
+      "longitude": 72.8856,
+      "servirity": 0.56
+    },
+     {
+      "city": "Pune",
+      "country": "India",
+      "latitude": 19.0748,
+      "longitude": 72.8856,
+      "servirity": 0.49
+    }]
+     }

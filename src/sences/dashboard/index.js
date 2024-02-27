@@ -12,7 +12,7 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/Barchart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
-import { mockDataInvoices } from "../../data/mockdata";
+//import { mockDataInvoices } from "../../data/mockdata";
 import { DataGrid } from "@mui/x-data-grid";
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -23,8 +23,8 @@ import { MenuItem } from "react-pro-sidebar";
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [rows, setRows] = useState(mockDataInvoices);
-/*
+  const [rows, setRows] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -40,14 +40,59 @@ const Dashboard = () => {
 
     fetchData();
   }, []);
-*/
-  const handleChangeStatus = (id, status) => {
-    const updatedRows = rows.map((row) =>
-      row.id === id ? { ...row, Status: status } : row
-    );
-    setRows(updatedRows);
-  };
 
+//------------------------------
+const getTotalEntriesByMonth = (rows, statusType) => {
+  return rows.reduce((acc, curr) => {
+    const { date, Status } = curr;
+    if (date && Status === statusType) {
+      const month = parseInt(date.split('/')[1], 10);
+      acc[month] = (acc[month] || 0) + 1;
+    }
+    return acc;
+  }, {});
+};
+
+const totalWorkingByMonth = getTotalEntriesByMonth(rows, 'Working');
+console.log("Total 'Working' status entries by month:", totalWorkingByMonth);
+
+const totalApprovedByMonth = getTotalEntriesByMonth(rows, 'Approved');
+console.log("Total 'Approved' status entries by month:", totalApprovedByMonth);
+
+
+
+//---------------------------------
+
+
+  //const totalApproved = rows.filter(row => row.Status === 'Approved').length;
+  const totalWorking = rows.filter(row => row.Status === 'Working').length;
+  const totalUpdated = rows.filter(row => row.Status === 'Updated').length;
+  const totalPending = rows.filter(row => row.Status === 'Pending').length;
+ //https://pothole-fd03e-default-rtdb.firebaseio.com/mockPie/0
+ const totalApproved = rows.filter(row => row.Status === 'Approved').length;
+
+ const piedata = async (id,value) => {
+  try {
+    // Update the status in Firebase
+    await fetch(`https://pothole-fd03e-default-rtdb.firebaseio.com/mockPie/${id}.json`, {
+      method: 'PATCH',
+      body: JSON.stringify({ value }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    // Update the status in the local state
+    
+  } catch (error) {
+    console.error("Error updating status: ", error);
+  }
+};
+piedata(0,totalApproved);
+piedata(1,totalWorking);
+piedata(2,totalPending);
+piedata(3,totalUpdated);
+ 
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -70,17 +115,7 @@ const Dashboard = () => {
       field: "Status",
       headerName: "Status",
       flex: 1,
-      renderCell: (params) => (
-        <Select
-          value={params.row.Status}
-          onChange={(e) => handleChangeStatus(params.row.id, e.target.value)}
-        >
-          <MenuItem value="Approved">Approved</MenuItem>
-          <MenuItem value="Working">Working</MenuItem>
-          <MenuItem value="Pending">Pending</MenuItem>
-          <MenuItem value="Updated">Updated</MenuItem>
-        </Select>
-      ),
+      
     },
     {
       field: "date",
@@ -113,8 +148,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
-            subtitle="Report Recevied "
+            title={`${totalPending}`}
+            subtitle="Pending"
             progress="0.75"
             increase=""
             icon={
@@ -132,7 +167,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="431,225"
+            title={`${totalApproved}`}
             subtitle="Approved"
             progress="0.50"
             increase=""
@@ -151,7 +186,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="32,441"
+            title={`${totalWorking}`}
             subtitle="Working"
             progress="0.30"
             increase=""
@@ -170,7 +205,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="1,325,134"
+            title={`${totalUpdated}`}
             subtitle="Updated"
             progress="0.80"
             increase=""

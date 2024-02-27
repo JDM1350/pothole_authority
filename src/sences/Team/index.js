@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../data/mockdata";
+///import { mockDataTeam } from "../../data/mockdata";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
@@ -11,8 +11,8 @@ import { useEffect, useState } from "react";
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [rows, setRows] = useState(mockDataTeam);
-/*
+  const [rows, setRows] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,7 +28,7 @@ const Team = () => {
 
     fetchData();
   }, []);
-  */
+  
   const columns = [
     { field: "id", headerName: "ID" },
     {
